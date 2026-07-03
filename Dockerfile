@@ -1,13 +1,9 @@
-# Build stage
-FROM maven:3.9-eclipse-temurin-17 AS build
+FROM eclipse-temurin:21-jdk-alpine
 WORKDIR /app
 COPY pom.xml .
-RUN mvn -q dependency:go-offline
 COPY src ./src
-RUN mvn -q package -DskipTests
-
-# Run stage
-FROM eclipse-temurin:17-jre
-WORKDIR /app
-COPY --from=build /app/target/*.jar app.jar
-ENTRYPOINT ["java", "-jar", "app.jar"]
+RUN apk add --no-cache maven
+RUN mvn clean package -DskipTests
+EXPOSE 8080
+ENV SPRING_PROFILES_ACTIVE=prod
+CMD ["java", "-jar", "target/ZapFile-0.0.1-SNAPSHOT.jar"]
