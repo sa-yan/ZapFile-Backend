@@ -68,12 +68,13 @@ public class TransferService {
                 .toList();
 
         BatchResponse response = BatchResponse.from(batchId, transfers);
-        boolean delivered = registry.sendToUser(receiver.getId(), "transfer.offer", response);
-        if (!delivered) {
-            // no device online — wake them up via push
-            deviceRepository.findByUserId(receiver.getId())
-                    .forEach(device -> pushNotifier.notifyTransferOffer(device, transfers));
-        }
+        registry.sendToUser(receiver.getId(), "transfer.offer", response);
+        // Always push as well: a killed app can leave its WebSocket session
+        // lingering (send "succeeds" into a dead socket), and a backgrounded
+        // app is connected but the user isn't looking. The app suppresses the
+        // notification when it's in the foreground.
+        deviceRepository.findByUserId(receiver.getId())
+                .forEach(device -> pushNotifier.notifyTransferOffer(device, transfers));
         return response;
     }
 
