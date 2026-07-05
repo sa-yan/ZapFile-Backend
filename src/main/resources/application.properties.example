@@ -1,0 +1,30 @@
+spring.application.name=ZapFile
+
+# Render (and most PaaS) inject PORT; default to 8081 locally (8080 is taken on the dev machine)
+server.port=${PORT:8081}
+
+# --- Database: Supabase Postgres (session pooler, IPv4) ---
+# Copy this file to application.properties (gitignored) and fill in real values.
+spring.datasource.url=jdbc:postgresql://<supabase-pooler-host>:5432/postgres?user=<pooler-user>
+spring.datasource.username=postgres
+spring.datasource.password=<db-password>
+spring.datasource.driver-class-name=org.postgresql.Driver
+spring.jpa.hibernate.ddl-auto=update
+
+# --- H2 (previous local dev database; restore by swapping the block above) ---
+#spring.datasource.url=jdbc:h2:file:./data/zapfile
+#spring.datasource.driver-class-name=org.h2.Driver
+#spring.datasource.username=sa
+#spring.datasource.password=
+#spring.h2.console.enabled=true
+#spring.h2.console.path=/h2-console
+
+# --- JWT ---
+# Override in prod via environment variable ZAPFILE_JWT_SECRET (min 32 bytes)
+# Generate a local one with: openssl rand -hex 64
+zapfile.jwt.secret=${ZAPFILE_JWT_SECRET:<local-dev-secret-min-32-bytes>}
+zapfile.jwt.access-expiry-minutes=30
+zapfile.jwt.refresh-expiry-days=30
+
+# --- Friend pairing codes ---
+zapfile.pairing-code.expiry-minutes=10
