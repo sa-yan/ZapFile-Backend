@@ -1,6 +1,7 @@
 package com.sayan.zapfile.friend;
 
 import com.sayan.zapfile.common.ApiException;
+import com.sayan.zapfile.common.RateLimiter;
 import com.sayan.zapfile.friend.FriendDtos.FriendResponse;
 import com.sayan.zapfile.friend.FriendDtos.PairingCodeResponse;
 import com.sayan.zapfile.friend.Friendship.Status;
@@ -19,12 +20,17 @@ public class FriendService {
 
     private static final String CODE_ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"; // no 0/O/1/I
     private static final int CODE_LENGTH = 6;
+    private static final int REDEEM_ATTEMPTS_PER_MINUTE = 10;
 
     private final FriendshipRepository friendshipRepository;
     private final PairingCodeRepository pairingCodeRepository;
     private final UserRepository userRepository;
     private final Duration codeExpiry;
     private final SecureRandom random = new SecureRandom();
+
+    /** Per-user cap on redemption attempts so short codes can't be brute-forced. */
+    private final RateLimiter redeemLimiter =
+            new RateLimiter(REDEEM_ATTEMPTS_PER_MINUTE, Duration.ofMinutes(1));
 
     public FriendService(FriendshipRepository friendshipRepository,
                          PairingCodeRepository pairingCodeRepository,
@@ -62,6 +68,9 @@ public class FriendService {
     /** Redeeming a valid code creates an immediately-accepted friendship. */
     @Transactional
     public FriendResponse redeemPairingCode(User user, String code) {
+        if (!redeemLimiter.tryAcquire(user.getId())) {
+            throw ApiException.tooManyRequests("Too many pairing attempts; try again in a minute");
+        }
         PairingCode pairingCode = pairingCodeRepository.findByCodeAndUsedFalse(code.trim().toUpperCase())
                 .orElseThrow(() -> ApiException.notFound("Invalid pairing code"));
         if (pairingCode.isExpired()) {

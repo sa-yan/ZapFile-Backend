@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class GlobalExceptionHandler {
 
     public record ErrorResponse(int status, String error, String message, Instant timestamp) {
-        static ErrorResponse of(HttpStatus status, String message) {
+        public static ErrorResponse of(HttpStatus status, String message) {
             return new ErrorResponse(status.value(), status.getReasonPhrase(), message, Instant.now());
         }
     }

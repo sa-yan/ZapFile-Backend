@@ -24,7 +24,7 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         // /ws and /relay authenticate themselves in WsAuthInterceptor (JWT via query param)
-                        .requestMatchers("/api/auth/**", "/h2-console/**", "/ws", "/relay", "/health").permitAll()
+                        .requestMatchers("/api/auth/**", "/h2-console/**", "/ws", "/relay", "/health", "/privacy-policy").permitAll()
                         .anyRequest().authenticated())
                 .headers(headers -> headers.frameOptions(frame -> frame.sameOrigin())) // for the H2 console
                 .exceptionHandling(ex -> ex.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))

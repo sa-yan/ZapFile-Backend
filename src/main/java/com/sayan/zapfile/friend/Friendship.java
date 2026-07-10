@@ -9,6 +9,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Index;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
@@ -20,8 +21,12 @@ import java.time.Instant;
  * addressee is who received the request.
  */
 @Entity
-@Table(name = "friendships", uniqueConstraints =
-        @UniqueConstraint(columnNames = {"requester_id", "addressee_id"}))
+@Table(name = "friendships",
+        uniqueConstraints = @UniqueConstraint(columnNames = {"requester_id", "addressee_id"}),
+        indexes = {
+                @Index(name = "idx_friendships_requester_id", columnList = "requester_id"),
+                @Index(name = "idx_friendships_addressee_id", columnList = "addressee_id")
+        })
 public class Friendship {
 
     public enum Status {

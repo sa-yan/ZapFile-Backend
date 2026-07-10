@@ -1,6 +1,7 @@
 package com.sayan.zapfile.transfer;
 
 import com.sayan.zapfile.common.ApiException;
+import com.sayan.zapfile.common.RateLimiter;
 import com.sayan.zapfile.device.Device;
 import com.sayan.zapfile.device.DeviceRepository;
 import com.sayan.zapfile.friend.FriendshipRepository;
@@ -14,13 +15,19 @@ import com.sayan.zapfile.transfer.TransferDtos.CreateTransferRequest;
 import com.sayan.zapfile.transfer.TransferDtos.TransferResponse;
 import com.sayan.zapfile.user.User;
 import com.sayan.zapfile.user.UserRepository;
+import java.time.Duration;
 import java.util.List;
 import java.util.UUID;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class TransferService {
+
+    private static final int OFFERS_PER_MINUTE = 30;
+    private static final int DEFAULT_HISTORY_LIMIT = 100;
+    private static final int MAX_HISTORY_LIMIT = 500;
 
     private final TransferRepository transferRepository;
     private final DeviceRepository deviceRepository;
@@ -28,6 +35,9 @@ public class TransferService {
     private final FriendshipRepository friendshipRepository;
     private final WsSessionRegistry registry;
     private final PushNotifier pushNotifier;
+
+    /** Per-user cap on offer creation; each offer fans out DB writes and push notifications. */
+    private final RateLimiter offerLimiter = new RateLimiter(OFFERS_PER_MINUTE, Duration.ofMinutes(1));
 
     public TransferService(TransferRepository transferRepository,
                            DeviceRepository deviceRepository,
@@ -45,6 +55,9 @@ public class TransferService {
 
     @Transactional
     public BatchResponse createOffer(User sender, CreateTransferRequest request) {
+        if (!offerLimiter.tryAcquire(sender.getId())) {
+            throw ApiException.tooManyRequests("Too many transfer offers; try again in a minute");
+        }
         Device senderDevice = deviceRepository.findByIdAndUserId(request.senderDeviceId(), sender.getId())
                 .orElseThrow(() -> ApiException.notFound("Sender device not found"));
         User receiver = userRepository.findById(request.receiverUserId())
@@ -225,8 +238,11 @@ public class TransferService {
     }
 
     @Transactional(readOnly = true)
-    public List<TransferResponse> history(User user) {
-        return transferRepository.findAllInvolvingUser(user.getId()).stream()
+    public List<TransferResponse> history(User user, Integer limit) {
+        int size = limit == null
+                ? DEFAULT_HISTORY_LIMIT
+                : Math.max(1, Math.min(limit, MAX_HISTORY_LIMIT));
+        return transferRepository.findAllInvolvingUser(user.getId(), PageRequest.of(0, size)).stream()
                 .map(TransferResponse::from)
                 .toList();
     }

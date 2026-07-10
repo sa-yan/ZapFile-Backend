@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ZapFile — Privacy Policy</title>
+  <style>
+    :root {
+      --bg: #14101f;
+      --card: #1d1730;
+      --text: #e9e4f7;
+      --muted: #a89fc4;
+      --accent: #7C5CFC;
+      --border: #322a4d;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+    }
+    .wrap { max-width: 760px; margin: 0 auto; padding: 48px 24px 80px; }
+    h1 { font-size: 2rem; margin-bottom: 4px; }
+    .subtitle { color: var(--muted); margin-bottom: 40px; font-size: 0.95rem; }
+    h2 {
+      font-size: 1.2rem;
+      color: var(--accent);
+      margin: 36px 0 12px;
+      padding-top: 8px;
+    }
+    p, li { color: var(--text); margin-bottom: 10px; }
+    ul { padding-left: 24px; margin-bottom: 12px; }
+    strong { color: #fff; }
+    a { color: var(--accent); }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin: 16px 0;
+    }
+    .muted { color: var(--muted); font-size: 0.9rem; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>ZapFile Privacy Policy</h1>
+    <p class="subtitle">Effective date: 10 July 2026</p>
+
+    <p>
+      ZapFile ("the app", "we") is a peer-to-peer file sharing application. This policy
+      explains what information the app collects, how it is used, and the choices you have.
+      The short version: <strong>we collect the minimum needed to run the service, the files
+      you share travel directly between devices whenever possible, and we never sell your
+      data or show ads.</strong>
+    </p>
+
+    <h2>1. Information we collect</h2>
+    <ul>
+      <li><strong>Account information</strong> — your email address and a password. Passwords
+        are stored only as salted cryptographic hashes; we cannot read them.</li>
+      <li><strong>Device information</strong> — a device name/model and a push notification
+        token, so your friends can see which device is online and so we can notify you of
+        incoming files.</li>
+      <li><strong>Friend connections</strong> — the list of accounts you have paired with
+        using a pairing code or QR code.</li>
+      <li><strong>Transfer metadata</strong> — file name, file size, sender, recipient,
+        timestamps, and transfer status (for example accepted, completed, failed). This
+        powers your transfer history.</li>
+    </ul>
+
+    <h2>2. Your files</h2>
+    <div class="card">
+      <p><strong>File contents are transferred peer-to-peer</strong> over an encrypted WebRTC
+        connection directly between your device and your friend's device. In this mode the
+        bytes of your files never touch our servers.</p>
+      <p>If a direct connection cannot be established, the transfer falls back to an encrypted
+        relay through our server. Relayed data is <strong>passed through in memory and is never
+        stored</strong>, logged, or inspected.</p>
+    </div>
+
+    <h2>3. Device permissions</h2>
+    <ul>
+      <li><strong>Camera</strong> — used only to scan a friend's pairing QR code. No photos or
+        video are captured or stored.</li>
+      <li><strong>Photos / media / storage</strong> — used only to let you pick files to send
+        and to save received photos, videos and files to your gallery or Downloads folder.</li>
+      <li><strong>Notifications</strong> — used to alert you about incoming file offers and
+        completed transfers.</li>
+    </ul>
+
+    <h2>4. How we use information</h2>
+    <ul>
+      <li>To operate the service: authentication, friend pairing, presence, and delivering
+        file transfer offers.</li>
+      <li>To send push notifications about transfers addressed to you.</li>
+      <li>To maintain your transfer history inside the app.</li>
+      <li>To protect the service, including rate limiting and abuse prevention.</li>
+    </ul>
+    <p>We do <strong>not</strong> sell or rent your personal data, use it for advertising, or
+      use it to train machine-learning models.</p>
+
+    <h2>5. Service providers</h2>
+    <p>We rely on a small number of infrastructure providers to run ZapFile:</p>
+    <ul>
+      <li><strong>Render</strong> — hosts our backend server.</li>
+      <li><strong>Supabase</strong> — hosts our database (account, friend, and transfer
+        metadata described above).</li>
+      <li><strong>Expo &amp; Firebase Cloud Messaging</strong> — deliver push notifications
+        to your device.</li>
+    </ul>
+    <p>These providers process data only on our behalf to deliver the service.</p>
+
+    <h2>6. Data retention and deletion</h2>
+    <p>Account data, friend connections, and transfer metadata are kept while your account is
+      active. You can request deletion of your account and all associated data at any time by
+      contacting us at the address below; we will delete it within 30 days. Files saved to your
+      device remain under your control and are unaffected.</p>
+
+    <h2>7. Security</h2>
+    <p>All communication between the app and our servers uses TLS (HTTPS/WSS). Peer-to-peer
+      transfers are encrypted end-to-end by WebRTC (DTLS-SRTP). Passwords are hashed with
+      bcrypt. No method of transmission or storage is 100% secure, but we work to protect
+      your information using industry-standard practices.</p>
+
+    <h2>8. Children</h2>
+    <p>ZapFile is not directed at children under 13, and we do not knowingly collect personal
+      information from children. If you believe a child has created an account, contact us and
+      we will delete it.</p>
+
+    <h2>9. Changes to this policy</h2>
+    <p>If we make material changes to this policy, we will update this page and the effective
+      date above. Continued use of the app after changes take effect constitutes acceptance of
+      the updated policy.</p>
+
+    <h2>10. Contact</h2>
+    <p>For privacy questions, data deletion requests, or anything else, email
+      <a href="mailto:sandip@roostoo.com">sandip@roostoo.com</a>.</p>
+
+    <p class="muted" style="margin-top:48px">© 2026 ZapFile</p>
+  </div>
+</body>
+</html>

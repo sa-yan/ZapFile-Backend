@@ -10,6 +10,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Index;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
@@ -21,7 +22,11 @@ import java.time.Instant;
  * outcome, and is what powers the history screen.
  */
 @Entity
-@Table(name = "transfers")
+@Table(name = "transfers", indexes = {
+        @Index(name = "idx_transfers_sender_id", columnList = "sender_id"),
+        @Index(name = "idx_transfers_receiver_id", columnList = "receiver_id"),
+        @Index(name = "idx_transfers_batch_id", columnList = "batch_id")
+})
 public class Transfer {
 
     public enum Status {
