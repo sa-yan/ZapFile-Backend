@@ -11,6 +11,11 @@ spring.datasource.password=<db-password>
 spring.datasource.driver-class-name=org.postgresql.Driver
 spring.jpa.hibernate.ddl-auto=update
 
+# Supabase's session pooler caps clients at 15 total; keep local dev small so
+# it can't starve the deployed backend (prod uses 5, see application-prod).
+spring.datasource.hikari.maximum-pool-size=4
+spring.datasource.hikari.minimum-idle=1
+
 # --- H2 (previous local dev database; restore by swapping the block above) ---
 #spring.datasource.url=jdbc:h2:file:./data/zapfile
 #spring.datasource.driver-class-name=org.h2.Driver
