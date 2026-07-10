@@ -18,4 +18,7 @@ public final class UserDtos {
     public record UpdateProfileRequest(
             @NotBlank @Size(min = 2, max = 50) String displayName) {
     }
+
+    public record DeleteAccountRequest(@NotBlank String password) {
+    }
 }

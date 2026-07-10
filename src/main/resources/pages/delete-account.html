@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ZapFile — Delete Your Account</title>
+  <style>
+    :root {
+      --bg: #14101f;
+      --card: #1d1730;
+      --text: #e9e4f7;
+      --muted: #a89fc4;
+      --accent: #7C5CFC;
+      --border: #322a4d;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+    }
+    .wrap { max-width: 760px; margin: 0 auto; padding: 48px 24px 80px; }
+    h1 { font-size: 2rem; margin-bottom: 4px; }
+    .subtitle { color: var(--muted); margin-bottom: 40px; font-size: 0.95rem; }
+    h2 {
+      font-size: 1.2rem;
+      color: var(--accent);
+      margin: 36px 0 12px;
+      padding-top: 8px;
+    }
+    p, li { color: var(--text); margin-bottom: 10px; }
+    ul, ol { padding-left: 24px; margin-bottom: 12px; }
+    strong { color: #fff; }
+    a { color: var(--accent); }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin: 16px 0;
+    }
+    .muted { color: var(--muted); font-size: 0.9rem; }
+    table { width: 100%; border-collapse: collapse; margin: 12px 0; }
+    th, td { text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--border); }
+    th { color: var(--muted); font-weight: 600; font-size: 0.9rem; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Delete Your ZapFile Account</h1>
+    <p class="subtitle">How to delete your ZapFile account and the data associated with it</p>
+
+    <p>
+      This page applies to the <strong>ZapFile</strong> app published on Google Play.
+      You can delete your account and all associated data at any time, using either
+      of the methods below.
+    </p>
+
+    <h2>Option 1 — Delete from inside the app</h2>
+    <div class="card">
+      <ol>
+        <li>Open ZapFile and sign in.</li>
+        <li>Scroll to the bottom of the main screen and tap <strong>Delete account</strong>.</li>
+        <li>Enter your password to confirm.</li>
+      </ol>
+      <p>Your account and data are deleted <strong>immediately</strong>.</p>
+    </div>
+
+    <h2>Option 2 — Request deletion by email</h2>
+    <div class="card">
+      <p>Email <a href="mailto:sandip@roostoo.com?subject=Delete%20my%20ZapFile%20account">sandip@roostoo.com</a>
+        with the subject <strong>“Delete my ZapFile account”</strong>, sent from the email
+        address your account is registered under. We will delete your account within
+        <strong>30 days</strong> and confirm by reply. Use this option if you can no longer
+        sign in to the app.</p>
+    </div>
+
+    <h2>What is deleted</h2>
+    <table>
+      <tr><th>Data</th><th>What happens</th></tr>
+      <tr><td>Account (email address, display name, password hash)</td><td>Deleted</td></tr>
+      <tr><td>Registered devices and push notification tokens</td><td>Deleted</td></tr>
+      <tr><td>Friend connections and pairing codes</td><td>Deleted</td></tr>
+      <tr><td>Transfer history (file names, sizes, timestamps, statuses)</td><td>Deleted — including its appearance in your friends' history</td></tr>
+      <tr><td>Files saved on your or your friends' devices</td><td>Not affected — files live on the devices themselves, never on our servers</td></tr>
+    </table>
+
+    <h2>Retention</h2>
+    <p>Deletion is permanent and takes effect immediately (in-app) or within 30 days
+      (email request). We do not retain any additional copies of your personal data after
+      deletion; encrypted infrastructure-level backups expire automatically within 30 days.</p>
+
+    <h2>Questions</h2>
+    <p>For anything else, see our <a href="/privacy-policy">privacy policy</a> or email
+      <a href="mailto:sandip@roostoo.com">sandip@roostoo.com</a>.</p>
+
+    <p class="muted" style="margin-top:48px">© 2026 ZapFile</p>
+  </div>
+</body>
+</html>
