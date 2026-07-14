@@ -33,3 +33,6 @@ zapfile.jwt.refresh-expiry-days=30
 
 # --- Friend pairing codes ---
 zapfile.pairing-code.expiry-minutes=10
+
+# --- CORS (browser web client only; mobile app is unaffected) ---
+zapfile.cors.allowed-origins=http://localhost:8081,http://localhost:19006,http://localhost:3000
